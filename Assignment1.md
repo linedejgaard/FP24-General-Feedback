@@ -184,5 +184,5 @@ Another thing to mention is that some students have unnecessary many pattern mat
 let rec bin = function
     | (0, 0) -> 1
     | (n, k) when k = 0 || k = n -> 1
-    | (n, k) -> bin (n - 1, k - 1) + bin (n - 1, k)
+    | ...
 ```
