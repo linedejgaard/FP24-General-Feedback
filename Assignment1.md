@@ -2,11 +2,23 @@
 
 ## How to run the code?
 
-There two different ways to run the code:
+It is **important** to be able to run the code. There two different ways to run the code:
 1. F# Interactive
 2. Run it as a project
 
 There are two guides uploaded to this repo explaining how to set up the IDE and run the project as well as how to run the code using F# Interactive. These documents are new, so if there are any mistakes, please let us know.
+
+## Deadline
+
+It seems that it has been possible to hand-in after deadline. Eventhough it is possible, please respect the deadline. The deadline is **Tuesday at 08:00**.
+
+## Check AutoTest and use the template
+
+Check that CodeGrade compile your submission. Many of the compile errors could be fixed by using the template.
+- It is important that the file has a specific name to make it compile. For the first assignment this was Assignment1.fs. One student submitted Program.fs. This won't compile.
+- It is important to have the module name given in the template. In this case `module Assignment1`.
+- All functions should have the signature and type specified in the assignment.
+
 
 ## Things relevant to the exercises
 
@@ -80,6 +92,49 @@ let isZero = fun x ->
 
 The `fun` keywords allows you to declare nameless or anonymous functions.
 
+### Explicit writing the type
+
+Often the compiler figures it out itself, but sometimes we need to specify the type (it might also be useful in order to get more help from the compiler).
+
+You specify the type by writing `<function name>:<type>`.
+
+Below there is an example of specifying the type of an argument.
+
+```fsharp
+let isZero (x:int) = 
+    match x with
+    | 0 -> true
+    | n -> false
+```
+
+It is important to wrap the argument in parenthesis s.t. the compiler is not confused about where the type "belongs". Without parenthesis, it means that the function `isZero` will return a `bool`:
+
+```fsharp
+let isZero x : bool = 
+    match x with
+    | 0 -> true
+    | n -> false
+```
+
+Here we specify that `x` should be an `int`, and that `isZero` should return a `bool`:
+
+```fsharp
+let isZero (x:int) : bool = 
+    match x with
+    | 0 -> true
+    | n -> false
+```
+
+
+
+Here we specify that the function `isZero` should be of type `int -> bool`.
+
+```fsharp
+let isZero : int -> bool = function
+    | 0 -> true
+    | n -> false
+```
+
 
 ### For-loops and mutability
 
@@ -112,12 +167,22 @@ The match cases need to be on the same column as `match x with`, so we need to m
 ```fsharp
 // Bad
 let someLongNameForIsZero x = match x with
-                            | 0 -> true
-                            | _ -> false
+                              | 0 -> true
+                              | _ -> false
 
 // Good
 let someLongNameForIsZero x = 
     match x with
     | 0 -> true
     | _ -> false
+```
+
+### Too many cases
+Another thing to mention is that some students have unnecessary many pattern matches. For instance the first match on `(0, 0)`, is not necessary, because `k = 0` and `k = n`, so it will be matched in the second case.
+
+```fsharp
+let rec bin = function
+    | (0, 0) -> 1
+    | (n, k) when k = 0 || k = n -> 1
+    | (n, k) -> bin (n - 1, k - 1) + bin (n - 1, k)
 ```
