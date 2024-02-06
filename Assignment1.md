@@ -121,23 +121,3 @@ let someLongNameForIsZero x =
     | 0 -> true
     | _ -> false
 ```
-
-### Too many cases
-
-Another thing to note is that many students have unnecessary many pattern matches. For instance the first match on `(0, 0)`, is not necessary, because `k = 0` and `k = n`, so it will be matched in the second case.
-
-```fsharp
-let rec bin = function
-    | (0, 0) -> 1
-    | (n, k) when k = 0 || k = n -> 1
-    | (n, k) -> bin (n - 1, k - 1) + bin (n - 1, k)
-```
-
-Another example is this solution for `dupn`. Here the second pattern match `1 -> s` is unnecessary, because it can be handled by the third pattern match. `s + (dupn s (n - 1))` will result in `s`, because `n-1=0`, so `(dupn s (n - 1))` will result in `""`.
-
-```fsharp
-let rec dupn (s:string) = function
-    | 0 -> ""
-    | 1 -> s
-    | n -> s + (dupn s (n - 1))
-```
